@@ -159,27 +159,5 @@ prop_id_output = glueContext.write_dynamic_frame.from_options(frame = prop_info_
                                                               connection_type = "s3", 
                                                               connection_options = {"path": "s3://readytouseweb/property_id/"}, 
                                                               format = "parquet", transformation_ctx = "prop_id_output")
-crime = web_scrape_final.apply_mapping(
-    [
-prop_feature_output = Property_features.repartition(1)
-prop_f_output = glueContext.write_dynamic_frame.from_options(frame = prop_feature_output, 
-                                                              connection_type = "s3", 
-                                                              connection_options = {"path": "s3://readytouseweb/property_feature/"}, 
-                                                              format = "parquet", transformation_ctx = "prop_f_output")
-        
 web_scrape_final.printSchema()
-s3output = glueContext.getSink(
-  path="s3://bucket_name/folder_name",
-  connection_type="s3",
-  updateBehavior="UPDATE_IN_DATABASE",
-  partitionKeys=[],
-  compression="snappy",
-  enableUpdateCatalog=True,
-  transformation_ctx="s3output",
-)
-s3output.setCatalogInfo(
-  catalogDatabase="demo", catalogTableName="populations"
-)
-s3output.setFormat("glueparquet")
-s3output.writeFrame(DyF)
 job.commit()
