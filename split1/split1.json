@@ -1,0 +1,39 @@
+{
+  "name" : "split1",
+  "description" : "",
+  "role" : "arn:aws:iam::927850244355:role/service-role/AWSGlueServiceRole",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-927850244355-eu-west-2/scripts/split.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-927850244355-eu-west-2/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-927850244355-eu-west-2/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1679159691075\":{\"S3GlueParquetTarget\":{\"Compression\":\"uncompressed\",\"Inputs\":[\"node-1679158949068\"],\"Name\":\"Review_par\",\"PartitionKeys\":[],\"Path\":\"s3://webscrapeagg\",\"SchemaChangePolicy\":{\"Database\":\"webscrapeupdate\",\"EnableUpdateCatalog\":true,\"Table\":\"Review_table\",\"UpdateBehavior\":\"UPDATE_IN_DATABASE\"}}},\"node-1679159571727\":{\"S3GlueParquetTarget\":{\"Compression\":\"uncompressed\",\"Inputs\":[\"node-1679158163339\"],\"Name\":\"Prop_price_par\",\"PartitionKeys\":[],\"Path\":\"s3://webscrapeagg\",\"SchemaChangePolicy\":{\"Database\":\"webscrapeupdate\",\"EnableUpdateCatalog\":true,\"Table\":\"Prop_price\",\"UpdateBehavior\":\"UPDATE_IN_DATABASE\"}}},\"node-1679159301243\":{\"S3GlueParquetTarget\":{\"Compression\":\"uncompressed\",\"Inputs\":[\"node-1679157966790\"],\"Name\":\"Host_par\",\"PartitionKeys\":[],\"Path\":\"s3://webscrapeagg\",\"SchemaChangePolicy\":{\"Database\":\"webscrapeupdate\",\"EnableUpdateCatalog\":true,\"Table\":\"Host_table\",\"UpdateBehavior\":\"UPDATE_IN_DATABASE\"}}},\"node-1679158163339\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1679158018873\"],\"Name\":\"prop_price\"}},\"node-1679157213371\":{\"CatalogSource\":{\"Database\":\"webscrapeupdate\",\"Name\":\"AWS Glue Data Catalog\",\"Table\":\"webscrape_version\"}},\"node-1679157251240\":{\"SplitFields\":{\"Inputs\":[\"node-1679157213371\"],\"Name\":\"Split Dataset By Fields\",\"Paths\":[[\"host_tag\"],[\"host_join\"],[\"host_resp\"]]}},\"node-1679158018873\":{\"SplitFields\":{\"Inputs\":[\"node-1679157997570\"],\"Name\":\"Split Dataset By Fields\",\"Paths\":[[\"name\"],[\"discount\"],[\"disc_price\"],[\"original_price\"],[\"address\"]]}},\"node-1679158949068\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1679158210949\"],\"Name\":\"Review\"}},\"node-1679157997570\":{\"SelectFromCollection\":{\"Index\":1,\"Inputs\":[\"node-1679157251240\"],\"Name\":\"Select From Collection\"}},\"node-1679158967649\":{\"SelectFromCollection\":{\"Index\":1,\"Inputs\":[\"node-1679158210949\"],\"Name\":\"Room\"}},\"node-1679158198444\":{\"SelectFromCollection\":{\"Index\":1,\"Inputs\":[\"node-1679158018873\"],\"Name\":\"Select From Collection\"}},\"node-1679159740882\":{\"S3GlueParquetTarget\":{\"Compression\":\"uncompressed\",\"Inputs\":[\"node-1679158967649\"],\"Name\":\"Room_par\",\"PartitionKeys\":[],\"Path\":\"s3://webscrapeagg\",\"SchemaChangePolicy\":{\"Database\":\"webscrapeupdate\",\"EnableUpdateCatalog\":true,\"Table\":\"Room_table\",\"UpdateBehavior\":\"UPDATE_IN_DATABASE\"}}},\"node-1679158210949\":{\"SplitFields\":{\"Inputs\":[\"node-1679158198444\"],\"Name\":\"Split Dataset By Fields\",\"Paths\":[[\"no_reviews\"],[\"rate\"],[\"value\"],[\"check_in_rate\"],[\"loc_rate\"],[\"comm_rate\"],[\"accuracy_rate\"],[\"clean_rate\"]]}},\"node-1679157966790\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1679157251240\"],\"Name\":\"Host\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "dataeng",
+    "branch" : "aws_glue_version",
+    "folder" : "split1"
+  }
+}
